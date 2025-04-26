@@ -4,8 +4,8 @@ import SideBar from '../SideBar/SideBAr';
 import { useState } from 'react';
 import './Layout.css'; // Importa el CSS
 
-const drawerWidthOpen = 240;
-const drawerWidthClosed = 70;
+const drawerWidthOpen = 10;
+const drawerWidthClosed = 10;
 
 function Layout() {
   const [open, setOpen] = useState(false);

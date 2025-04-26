@@ -1,5 +1,5 @@
 import { Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { Home, Info, Menu } from '@mui/icons-material';
+import { Home, Info, Menu, EditNote  } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import './SideBar.css';
 
@@ -39,7 +39,7 @@ function SideBar({ open, setOpen }: SideBarProps) {
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/reservas">
             <ListItemIcon>
-              <Home />
+              <EditNote />
             </ListItemIcon>
             {open && <ListItemText primary="Reservas" />}
           </ListItemButton>
