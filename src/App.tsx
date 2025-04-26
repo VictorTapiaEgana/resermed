@@ -1,28 +1,21 @@
-import { Grid } from '@mui/material'
-import './App.css'
-import { Calendar } from './components/Calendar'
-import { ResumenDiario } from './components/ResumenDiario'
-import { NavBar } from './components/NavBar'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import { Calendar } from './components/Calendar';
+// import Home from './pages/Home';
+// import About from './pages/About';
 
 function App() {
-  
   return (
-    <>
-      <NavBar />
-      <Grid sx={{display:'flex',gap:'10px'}}>
-        
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* <Route index element={<Home />} /> */}
+          <Route path="reservas" element={ <Calendar  date = {new Date()}/> }/> 
           
-        <Calendar date={new Date()}/>      
-        
-        <ResumenDiario />      
-
-    </Grid>    
-
-    </>
-    
-    
-  )
-
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

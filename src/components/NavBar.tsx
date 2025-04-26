@@ -6,7 +6,7 @@ interface NavBarProps {
 }
 
 // export function NavBar({ onSidebarToggle }: NavBarProps) {
-export function NavBar() {
+export default function NavBar() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 

@@ -5,6 +5,7 @@ import { Card, CardHeader, CardContent, Typography, Avatar, Chip, Divider, IconB
 import { ChevronLeft as ChevronLeftIcon,
          ChevronRight as ChevronRightIcon,
          MoreHoriz as MoreHorizIcon } from "@mui/icons-material"
+import NavBar from "./NavBar"
 
 
 const appointments = [
@@ -162,144 +163,146 @@ export function Calendar({ date }: AppointmentCalendarProps) {
   const renderedSlots = new Set<string>()
 
   return (
-
-    <Card elevation={2} sx={{ width:'100%', borderRadius:'20px' }}>
-      <CardHeader
-        title={
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">Horario de Citas</Typography>
-            <Box>
-              <IconButton size="small" onClick={handlePrevDay}>
-                <ChevronLeftIcon fontSize="small" />
-              </IconButton>
-              <IconButton size="small" onClick={handleNextDay}>
-                <ChevronRightIcon fontSize="small" />
-              </IconButton>
-            </Box>
-          </Box>
-        }
-      />
-      <CardContent>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-        
-          {orderedHours.map((hour) => (
-            <Box key={hour} sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" fontWeight="medium" sx={{ mb: 1 }}>
-                {hour}:00
-              </Typography>
-
-              <Box sx={{ display: "flex", flexDirection: "column", ml: 2 }}>
-                
-                    {groupedTimeSlots[hour].map((timeSlot) => {
-                      if (renderedSlots.has(timeSlot)) {
-                        return null 
-                      }
-
-                      const appointmentsAtTime = getAppointmentsForTimeSlot(timeSlot)
-                      const [_, minutes] = timeSlot.split(":")
-
-                      let skipMinutes = 0
-
-                      if (appointmentsAtTime.length > 0) {
-                        // Si hay cita en este slot, calcular cuánto dura y bloquear siguientes slots
-                        const appointment = appointmentsAtTime[0]
-                        skipMinutes = appointment.duration
-
-                        const startTime = new Date(`1970-01-01T${appointment.time}:00`)
-                        for (let i = 0; i < skipMinutes; i += 15) {
-                          const blockedTime = new Date(startTime.getTime() + i * 60000)
-                          const hours = blockedTime.getHours().toString().padStart(2, "0")
-                          const mins = blockedTime.getMinutes().toString().padStart(2, "0")
-                          renderedSlots.add(`${hours}:${mins}`)
-                        }
-                      }
-
-                      return (
-                        <Box key={timeSlot} sx={{ mb: 1 }}>
-                          <Box display="flex" alignItems="center">
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              sx={{
-                                width: 40,
-                                fontWeight: minutes === "00" ? 500 : 400,
-                                opacity: minutes === "00" ? 1 : 0.7,
-                              }}
-                            >
-                              {minutes === "00" ? "" : minutes}
-                            </Typography>
-                            <Divider sx={{ flexGrow: 1, opacity: minutes === "00" ? 1 : 0.5 }} />
-                          </Box>
-
-                          {appointmentsAtTime.length > 0 && (
-                            <Box ml={5} mt={0.5} mb={1}>
-                              {appointmentsAtTime.map((appointment) => (
-                                <Paper
-                                  key={appointment.id}
-                                  variant="outlined"
-                                  sx={{
-                                    p: 1.5,
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",                                    
-                                    "&:hover": { bgcolor: '#1e55ec24' },
-                                    
-                                    borderRadius: 1,
-                                    borderLeft: 4,
-                                    borderLeftColor: appointment.status === "confirmed" ? "primary.main" : "grey.400",
-                                    mb: 1,
-                                  }}
-                                >
-                                  <Box display="flex" alignItems="center" gap={1.5}>
-                                    <Avatar
-                                      src={appointment.patient.avatar || "/placeholder.svg"}
-                                      alt={appointment.patient.name}
-                                      sx={{ width: 32, height: 32 }}
-                                    >
-                                      {appointment.patient.initials}
-                                    </Avatar>
-                                    <Box>
-                                      <Typography variant="body1">{appointment.patient.name}</Typography>
-                                      
-                                      <Box display="flex" alignItems="flex-start" flexDirection="column" >
-                                        
-                                        <Typography variant="caption" color="info" fontWeight={800} >
-                                          {appointment.time} - {appointment.duration} min
-                                        </Typography>
-                                        
-                                        <Typography variant="caption" color="textSecondary">
-                                          {appointment.type}
-                                        </Typography>
-
-                                      </Box>
-
-                                    </Box>
-                                  </Box>
-                                  <Box display="flex" alignItems="center" gap={1}>
-                                    <Chip
-                                      label={appointment.status === "confirmed" ? "Confirmada" : "Pendiente"}
-                                      color={appointment.status === "confirmed" ? "primary" : "warning"}
-                                      // variant={appointment.status === "confirmed" ? "filled" : "outlined"}
-                                      variant="filled"
-                                      size="small"
-                                    />
-                                    <IconButton size="small">
-                                      <MoreHorizIcon fontSize="small" />
-                                    </IconButton>
-                                  </Box>
-                                </Paper>
-                              ))}
-                            </Box>
-                          )}
-                        </Box>
-                      )
-                    })}
-
+      <>
+        <NavBar />
+        <Card elevation={2} sx={{ width:'100%', borderRadius:'20px' }}>
+        <CardHeader
+          title={
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="h6">Horario de Citas</Typography>
+              <Box>
+                <IconButton size="small" onClick={handlePrevDay}>
+                  <ChevronLeftIcon fontSize="small" />
+                </IconButton>
+                <IconButton size="small" onClick={handleNextDay}>
+                  <ChevronRightIcon fontSize="small" />
+                </IconButton>
               </Box>
             </Box>
-          ))}
-        </Box>
-      </CardContent>
-    </Card>
+          }
+        />
+        <CardContent>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          
+            {orderedHours.map((hour) => (
+              <Box key={hour} sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" fontWeight="medium" sx={{ mb: 1 }}>
+                  {hour}:00
+                </Typography>
+
+                <Box sx={{ display: "flex", flexDirection: "column", ml: 2 }}>
+                  
+                      {groupedTimeSlots[hour].map((timeSlot) => {
+                        if (renderedSlots.has(timeSlot)) {
+                          return null 
+                        }
+
+                        const appointmentsAtTime = getAppointmentsForTimeSlot(timeSlot)
+                        const [_, minutes] = timeSlot.split(":")
+
+                        let skipMinutes = 0
+
+                        if (appointmentsAtTime.length > 0) {
+                          // Si hay cita en este slot, calcular cuánto dura y bloquear siguientes slots
+                          const appointment = appointmentsAtTime[0]
+                          skipMinutes = appointment.duration
+
+                          const startTime = new Date(`1970-01-01T${appointment.time}:00`)
+                          for (let i = 0; i < skipMinutes; i += 15) {
+                            const blockedTime = new Date(startTime.getTime() + i * 60000)
+                            const hours = blockedTime.getHours().toString().padStart(2, "0")
+                            const mins = blockedTime.getMinutes().toString().padStart(2, "0")
+                            renderedSlots.add(`${hours}:${mins}`)
+                          }
+                        }
+
+                        return (
+                          <Box key={timeSlot} sx={{ mb: 1 }}>
+                            <Box display="flex" alignItems="center">
+                              <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                sx={{
+                                  width: 40,
+                                  fontWeight: minutes === "00" ? 500 : 400,
+                                  opacity: minutes === "00" ? 1 : 0.7,
+                                }}
+                              >
+                                {minutes === "00" ? "" : minutes}
+                              </Typography>
+                              <Divider sx={{ flexGrow: 1, opacity: minutes === "00" ? 1 : 0.5 }} />
+                            </Box>
+
+                            {appointmentsAtTime.length > 0 && (
+                              <Box ml={5} mt={0.5} mb={1}>
+                                {appointmentsAtTime.map((appointment) => (
+                                  <Paper
+                                    key={appointment.id}
+                                    variant="outlined"
+                                    sx={{
+                                      p: 1.5,
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      alignItems: "center",                                    
+                                      "&:hover": { bgcolor: '#1e55ec24' },
+                                      
+                                      borderRadius: 1,
+                                      borderLeft: 4,
+                                      borderLeftColor: appointment.status === "confirmed" ? "primary.main" : "grey.400",
+                                      mb: 1,
+                                    }}
+                                  >
+                                    <Box display="flex" alignItems="center" gap={1.5}>
+                                      <Avatar
+                                        src={appointment.patient.avatar || "/placeholder.svg"}
+                                        alt={appointment.patient.name}
+                                        sx={{ width: 32, height: 32 }}
+                                      >
+                                        {appointment.patient.initials}
+                                      </Avatar>
+                                      <Box>
+                                        <Typography variant="body1">{appointment.patient.name}</Typography>
+                                        
+                                        <Box display="flex" alignItems="flex-start" flexDirection="column" >
+                                          
+                                          <Typography variant="caption" color="info" fontWeight={800} >
+                                            {appointment.time} - {appointment.duration} min
+                                          </Typography>
+                                          
+                                          <Typography variant="caption" color="textSecondary">
+                                            {appointment.type}
+                                          </Typography>
+
+                                        </Box>
+
+                                      </Box>
+                                    </Box>
+                                    <Box display="flex" alignItems="center" gap={1}>
+                                      <Chip
+                                        label={appointment.status === "confirmed" ? "Confirmada" : "Pendiente"}
+                                        color={appointment.status === "confirmed" ? "primary" : "warning"}
+                                        // variant={appointment.status === "confirmed" ? "filled" : "outlined"}
+                                        variant="filled"
+                                        size="small"
+                                      />
+                                      <IconButton size="small">
+                                        <MoreHorizIcon fontSize="small" />
+                                      </IconButton>
+                                    </Box>
+                                  </Paper>
+                                ))}
+                              </Box>
+                            )}
+                          </Box>
+                        )
+                      })}
+
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </CardContent>
+        </Card>
+      </>
   )
 }
