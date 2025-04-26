@@ -23,10 +23,10 @@ export default function NavBar() {
         marginBottom:'20px'
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 2, minHeight: 56 }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 2, minHeight: 56 }}> 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           {/* <IconButton edge="start" color="inherit" aria-label="menu" onClick={()=>{}} size="medium">
-            <MenuIcon />
+              <MenuIcon />
           </IconButton> */}
 
           <Paper

@@ -37,12 +37,18 @@ function SideBar({ open, setOpen }: SideBarProps) {
       </div>
       <List>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/reservas">
+          
+          <ListItemButton sx={{'&:hover': {
+                                 backgroundColor: '#1e55ec24',
+                               },
+                             }}
+                          component={Link} to="/reservas" >
             <ListItemIcon>
-              <EditNote />
+              <EditNote/>
             </ListItemIcon>
             {open && <ListItemText primary="Reservas" />}
           </ListItemButton>
+
         </ListItem>
 
         {/* <ListItem disablePadding>

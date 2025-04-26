@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useState } from "react"
-import { Card, CardHeader, CardContent, Typography, Avatar, Chip, Divider, IconButton, Box, Paper } from "@mui/material"
+import { Card, CardHeader, CardContent, Typography, Avatar, Chip, Divider, IconButton, Box, Paper, Menu, MenuItem } from "@mui/material"
 import { ChevronLeft as ChevronLeftIcon,
          ChevronRight as ChevronRightIcon,
          MoreHoriz as MoreHorizIcon } from "@mui/icons-material"
@@ -244,11 +244,11 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                       display: "flex",
                                       justifyContent: "space-between",
                                       alignItems: "center",                                    
-                                      "&:hover": { bgcolor: '#1e55ec24' },
+                                      "&:hover": { bgcolor: appointment.status === "confirmed" ? '#1e55ec24' : "#ff51004c" },
                                       
                                       borderRadius: 1,
                                       borderLeft: 4,
-                                      borderLeftColor: appointment.status === "confirmed" ? "primary.main" : "grey.400",
+                                      borderLeftColor: appointment.status === "confirmed" ? "primary.main" : "warning.main",
                                       mb: 1,
                                     }}
                                   >
@@ -288,6 +288,23 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                       <IconButton size="small">
                                         <MoreHorizIcon fontSize="small" />
                                       </IconButton>
+                                      <Menu
+                                           anchorEl={anchorEl}
+                                           open={open}
+                                           onClose={handleClose}
+                                           anchorOrigin={{
+                                             vertical: 'bottom',
+                                             horizontal: 'right',
+                                           }}
+                                           transformOrigin={{
+                                             vertical: 'top',
+                                             horizontal: 'right',
+                                           }}
+                                         >
+                                           <MenuItem onClick={() => handleOptionClick('Confirmar')}>Confirmar</MenuItem>
+                                           <MenuItem onClick={() => handleOptionClick('Cancelar')}>Cancelar</MenuItem>
+                                           <MenuItem onClick={() => handleOptionClick('Re-Agendar')}>Re-Agendar</MenuItem>
+                                      </Menu>
                                     </Box>
                                   </Paper>
                                 ))}
