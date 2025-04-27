@@ -4,6 +4,9 @@ import { useState } from "react"
 import { Card, CardHeader, CardContent, Typography, Avatar, Chip, Divider, IconButton, Box, Paper, Menu, MenuItem } from "@mui/material"
 import { ChevronLeft as ChevronLeftIcon,
          ChevronRight as ChevronRightIcon,
+         CheckCircle as CheckCircleIcon,
+         AccessTime as ClockIcon,         
+         Cancel as XCircleIcon,
          MoreHoriz as MoreHorizIcon } from "@mui/icons-material"
 import NavBar from "./NavBar"
 
@@ -136,7 +139,25 @@ interface AppointmentCalendarProps {
 }
 
 export function Calendar({ date }: AppointmentCalendarProps) {
+
   const [selectedDate, setSelectedDate] = useState<Date>(date)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOptionClick = (option: string) => {
+    console.log('Seleccionado:', option);
+    handleClose();
+  };
+
 
   const getAppointmentsForTimeSlot = (time: string) => {
 
@@ -285,7 +306,7 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                         variant="filled"
                                         size="small"
                                       />
-                                      <IconButton size="small">
+                                      <IconButton size="small" onClick={handleClick}>
                                         <MoreHorizIcon fontSize="small" />
                                       </IconButton>
                                       <Menu
@@ -300,10 +321,31 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                              vertical: 'top',
                                              horizontal: 'right',
                                            }}
+                                           slotProps={{
+                                            paper:{
+                                                elevation: 3,
+                                                sx: {
+                                                  borderRadius: 2,
+                                                  boxShadow: '0px 1px 2px rgba(0,0,0,0.1)',
+                                                },
+                                            }                                            
+                                          }}
                                          >
-                                           <MenuItem onClick={() => handleOptionClick('Confirmar')}>Confirmar</MenuItem>
-                                           <MenuItem onClick={() => handleOptionClick('Cancelar')}>Cancelar</MenuItem>
-                                           <MenuItem onClick={() => handleOptionClick('Re-Agendar')}>Re-Agendar</MenuItem>
+                                            <MenuItem onClick={() => handleOptionClick('Confirmar')}>
+                                              <CheckCircleIcon  color="success" sx={{ marginRight:'5px'}}/>
+                                              Confirmar
+                                            </MenuItem>
+
+                                            <MenuItem onClick={() => handleOptionClick('Cancelar')}>
+                                              <XCircleIcon  color="error" sx={{ marginRight:'5px'}}/>
+                                              Cancelar
+                                            </MenuItem>
+
+                                            <MenuItem onClick={() => handleOptionClick('Re-Agendar')}>
+                                               <ClockIcon  color="warning" sx={{ marginRight:'5px'}}/>
+                                               Re-Agendar
+                                            </MenuItem>
+
                                       </Menu>
                                     </Box>
                                   </Paper>

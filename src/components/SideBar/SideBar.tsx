@@ -1,9 +1,10 @@
 import { Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Home, Info, Menu, EditNote  } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import MenuItems from './SideBar'
 import './SideBar.css';
 
-const drawerWidthOpen = 240;
+const drawerWidthOpen = 180;
 const drawerWidthClosed = 70;
 
 interface SideBarProps {
@@ -36,29 +37,30 @@ function SideBar({ open, setOpen }: SideBarProps) {
         </IconButton>
       </div>
       <List>
-        <ListItem disablePadding>
+
+        {
+          MenuItems && MenuItems.map((item,index) =>{
+            const Icono = item.icono;
+
+            return(
+                    <ListItem disablePadding key={index}>
+                  
+                      <ListItemButton sx={{'&:hover': {
+                                            backgroundColor: '#1e55ec24',
+                                          },
+                                        }}
+                                      component={Link} to={ item.link } >
+                        <ListItemIcon>
+                          <Icono /> 
+                        </ListItemIcon>
+                        {open && <ListItemText primary={ item.nombre} />}
+                      </ListItemButton>
           
-          <ListItemButton sx={{'&:hover': {
-                                 backgroundColor: '#1e55ec24',
-                               },
-                             }}
-                          component={Link} to="/reservas" >
-            <ListItemIcon>
-              <EditNote/>
-            </ListItemIcon>
-            {open && <ListItemText primary="Reservas" />}
-          </ListItemButton>
-
-        </ListItem>
-
-        {/* <ListItem disablePadding>
-          <ListItemButton component={Link} to="/about">
-            <ListItemIcon>
-              <Info />
-            </ListItemIcon>
-            {open && <ListItemText primary="Acerca de" />}
-          </ListItemButton>
-        </ListItem> */}
+                  </ListItem>
+            )
+          })
+        }
+        
       </List>
     </Drawer>
   );
