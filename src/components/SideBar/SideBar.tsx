@@ -1,11 +1,11 @@
 import { Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { Home, Info, Menu, EditNote  } from '@mui/icons-material';
+import { Menu } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import MenuItems from './SideBar'
 import './SideBar.css';
 
 const drawerWidthOpen = 180;
-const drawerWidthClosed = 70;
+const drawerWidthClosed = 55;
 
 interface SideBarProps {
   open: boolean;

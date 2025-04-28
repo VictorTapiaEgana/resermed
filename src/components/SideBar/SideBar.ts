@@ -1,4 +1,4 @@
-import { Home, Info, Menu, EditNote  } from '@mui/icons-material';
+import { Home, EditNote  } from '@mui/icons-material';
 
 
 const MenuItems = [
