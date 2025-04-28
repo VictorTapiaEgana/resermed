@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardHeader, CardContent, Typography, Avatar, Chip, Divider, IconButton, Box, Paper, Menu, MenuItem } from "@mui/material"
 import { ChevronLeft as ChevronLeftIcon,
          ChevronRight as ChevronRightIcon,
@@ -133,12 +133,18 @@ interface AppointmentCalendarProps {
   date: Date
 }
 
+const Meses =['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+
 export function Calendar({ date }: AppointmentCalendarProps) {
 
   const [selectedDate, setSelectedDate] = useState<Date>(date)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+
+  useEffect(()=>{
+    console.log(selectedDate)
+  },[selectedDate])
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -186,6 +192,11 @@ export function Calendar({ date }: AppointmentCalendarProps) {
           title={
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Typography variant="h6">Horario de Citas</Typography>
+              
+              <Typography variant="h4">
+                   { selectedDate.getDate() } - { Meses[selectedDate.getMonth()].toUpperCase() }
+              </Typography>
+
               <Box>
                 <IconButton size="small" onClick={handlePrevDay}>
                   <ChevronLeftIcon fontSize="small" />
@@ -274,7 +285,7 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                         alt={appointment.patient.name}
                                         sx={{ width: 32, height: 32 }}
                                       >
-                                        {appointment.patient.initials}
+                                        {/* {appointment.patient.initials} */}
                                       </Avatar>
                                       <Box>
                                         <Typography variant="body1">{appointment.patient.name}</Typography>
