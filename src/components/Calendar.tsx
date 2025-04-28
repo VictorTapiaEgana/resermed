@@ -9,6 +9,7 @@ import { ChevronLeft as ChevronLeftIcon,
          Cancel as XCircleIcon,
          MoreHoriz as MoreHorizIcon } from "@mui/icons-material"
 import NavBar from "./NavBar"
+import placeholder from '../assets/usuario.png'
 
 
 const appointments = [
@@ -17,8 +18,7 @@ const appointments = [
     time: "09:15",
     patient: {
       name: "María González",
-      avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg",
-      initials: "MG",
+      avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg",      
     },
     type: "Consulta General",
     status: "confirmed",
@@ -29,8 +29,7 @@ const appointments = [
     time: "10:30",
     patient: {
       name: "Carlos Rodríguez",
-      avatar: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg",
-      initials: "CR",
+      avatar: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg",      
     },
     type: "Control Rutinario",
     status: "confirmed",
@@ -41,8 +40,7 @@ const appointments = [
     time: "12:00",
     patient: {
       name: "Ana Martínez",
-      avatar: "https://www.lumierebeautyclinic.com.au/wp-content/uploads/2023/05/what-makes-a-face-attractive-Lumiere-Beauty-Clinic-scaled.jpg",
-      initials: "AM",
+      avatar: "https://www.lumierebeautyclinic.com.au/wp-content/uploads/2023/05/what-makes-a-face-attractive-Lumiere-Beauty-Clinic-scaled.jpg",      
     },
     type: "Examen Físico",
     status: "pending",
@@ -53,8 +51,7 @@ const appointments = [
     time: "14:45",
     patient: {
       name: "Juan Pérez",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "JP",
+      avatar: "",      
     },
     type: "Seguimiento",
     status: "confirmed",
@@ -65,8 +62,7 @@ const appointments = [
     time: "16:15",
     patient: {
       name: "Laura Sánchez",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "LS",
+      avatar: "",      
     },
     type: "Consulta Especialista",
     status: "confirmed",
@@ -77,8 +73,7 @@ const appointments = [
     time: "18:30",
     patient: {
       name: "Test Prueba",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "LS",
+      avatar: "",      
     },
     type: "Consulta Especialista",
     status: "confirmed",
@@ -89,8 +84,8 @@ const appointments = [
     time: "13:00",
     patient: {
       name: "cita a las 13:00",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "LS",
+      avatar: "",
+      
     },
     type: "Consulta Especialista",
     status: "confirmed",
@@ -275,7 +270,7 @@ export function Calendar({ date }: AppointmentCalendarProps) {
                                   >
                                     <Box display="flex" alignItems="center" gap={1.5}>
                                       <Avatar
-                                        src={appointment.patient.avatar || "/placeholder.svg"}
+                                        src={appointment.patient.avatar || placeholder }
                                         alt={appointment.patient.name}
                                         sx={{ width: 32, height: 32 }}
                                       >
