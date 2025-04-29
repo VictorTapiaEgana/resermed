@@ -1,11 +1,9 @@
-import { AppBar, Toolbar, IconButton, InputBase, Button, Box, useMediaQuery, useTheme, Paper } from "@mui/material"
-import { Menu as MenuIcon, Search as SearchIcon, Add as AddIcon, Today as TodayIcon } from "@mui/icons-material"
+import { AppBar, Toolbar, InputBase, Button, Box, useMediaQuery, useTheme, Paper } from "@mui/material"
+import { Search as SearchIcon, Add as AddIcon, Today as TodayIcon } from "@mui/icons-material"
 
-interface NavBarProps {
-  onSidebarToggle: () => void
-}
 
-// export function NavBar({ onSidebarToggle }: NavBarProps) {
+
+
 export default function NavBar() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
