@@ -1,1 +1,3 @@
-# React + TypeScript + Material UI + Express + PostgreSQL
+# React + TypeScript + Material UI 
+
+ Solo El Frontend

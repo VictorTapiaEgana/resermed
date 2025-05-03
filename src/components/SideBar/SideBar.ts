@@ -12,6 +12,12 @@ const MenuItems = [
                         icono :  EditNote,
                         nombre: 'Reservas'
                     },
+                    {
+                        link  : '/medicos',
+                        icono :  EditNote,
+                        nombre: 'Medicos'
+                    },
+
 ]
 
 export default MenuItems;
